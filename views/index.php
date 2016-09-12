@@ -14,6 +14,7 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
+<?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
 
 /* @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
@@ -25,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
 
     <div class="box">
+        
+        <?= $generator->enablePjax ? "    <?php Pjax::begin(); ?>\n" : '' ?>
 
         <div class="box-header with-border">
             <div class="pull-left">
@@ -83,6 +86,8 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
     ]) ?>
 <?php endif; ?>
         </div>
+        
+        <?= $generator->enablePjax ? "    <?php Pjax::end(); ?>\n" : '' ?>
 
     </div> <!--end box -->
 
